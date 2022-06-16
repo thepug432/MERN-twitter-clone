@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import AuthBack from '../static/images/auth-back.jpg'
 import { Link } from 'react-router-dom'
 import {IoCreateOutline} from 'react-icons/io5'
+import {motion} from 'framer-motion'
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -48,13 +49,14 @@ function Register() {
             </form>
 
             <div className='mx-16 flex mb-16'>
-            <button type="submit" className='bg-red-500 p-3 px-5 rounded-lg text-white'>
+            <motion.button whileHover={{ scale: 1.1 }} transition={{ duration: .3 }} type="submit" className='bg-red-500 p-3 px-5 rounded-lg text-white'>
               <div className='flex'>Create account!<div className='my-auto ml-2'><IoCreateOutline /></div></div>
-            </button>
-            <Link to={'/'} className='ml-auto my-auto'>
-              Already have an account?
-            </Link>
-
+            </motion.button>
+            <motion.div whileHover={{ scale: 1.1 }} transition={{ duration: .3 }} className='ml-auto my-auto'>
+              <Link to={'/'}>
+                Already have an account?
+              </Link>
+            </motion.div>
           </div>
 
       </div>

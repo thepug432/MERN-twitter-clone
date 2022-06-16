@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import {Link} from 'react-router-dom'
 import AuthBack from '../static/images/auth-back.jpg'
 import {BiLogIn} from 'react-icons/bi'
+import {motion} from 'framer-motion'
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -40,13 +41,14 @@ function Login() {
           </form>
 
           <div className='mx-16 flex mb-16'>
-            <button className='bg-red-500 p-3 px-5 rounded-lg text-white' type='submit'>
+            <motion.button whileHover={{ scale: 1.1 }} transition={{ duration: .3 }} className='bg-red-500 p-3 px-5 rounded-lg text-white' type='submit'>
               <div className='flex'>Login <div className='my-auto ml-2'><BiLogIn /></div></div>
-            </button>
-            <Link to={'/register'} className='ml-auto my-auto'>
-              Don't have an account?
-            </Link>
-
+            </motion.button>
+            <motion.div whileHover={{ scale: 1.1 }} transition={{ duration: .3 }} className='ml-auto my-auto'>
+              <Link to={'/register'}>
+                Don't have an account?
+              </Link>
+            </motion.div>
           </div>
 
       </div>
