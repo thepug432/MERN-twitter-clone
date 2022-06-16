@@ -1,5 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import AuthBack from '../static/images/auth-back.jpg'
+import {BiLogIn} from 'react-icons/bi'
 
 function Login() {
   return (
@@ -7,7 +9,7 @@ function Login() {
 
       {/* sidebar */}
       <div className='w-7/12 sm:block hidden'>
-      asdassasas
+        <img src={AuthBack} alt={'Background for login'} className="w-full h-full p-3 py-6 rounded-2xl drop-shadow-2xl"/>
       </div>
 
       {/* form */}
@@ -21,7 +23,7 @@ function Login() {
 
           <div className='mx-16 flex mb-16'>
             <button className='bg-red-500 p-3 px-5 rounded-lg text-white'>
-              Login
+              <p className='flex'>Login <div className='my-auto'><BiLogIn /></div></p>
             </button>
             <Link to={'/register'} className='ml-auto my-auto'>
               Don't have an account?
