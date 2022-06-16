@@ -8,12 +8,11 @@ const getPosts = asyncHandler(async (req, res) => {
 })
 
 const createPost = asyncHandler(async (req, res) => {
-    console.log('ran');
-    if (req.body.text){
+    if (!req.body.text){
         res.status(400)
         throw new Error('Please add text field')
     }
-    
+    console.log(req.body);
     const goal = await Posts.create({
         text: req.body.text
     })
