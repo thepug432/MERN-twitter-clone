@@ -3,12 +3,12 @@ import {registerService} from './authService'
 
 const user = JSON.parse(localStorage.getItem('user'))
 
-const initalState = {
-    user: user ? user : null,
-    isError: false,
-    isSuccess: false,
-    isLoading: false,
-    message: ''
+const initialState = {
+  user: user ? user : null,
+  isError: false,
+  isSuccess: false,
+  isLoading: false,
+  message: '',
 }
 
 // register
@@ -23,7 +23,7 @@ export const register = createAsyncThunk('auth/register', async (user, ThunkAPI)
 
 export const authSlice = createSlice({
     name: 'auth',
-    initalState: initalState,
+    initialState,
     reducers: {
         reset: (state) => {
             state.isError = false
@@ -32,7 +32,23 @@ export const authSlice = createSlice({
             state.message = ''
         }
     },
-    extraReducers: () => {}
+    extraReducers: (builder) => {
+        builder
+            .addCase(register.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(register.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isSuccess = true
+                state.user = action.payload
+            })
+            .addCase(register.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = false
+                state.user = null
+                state.message = action.payload
+            })
+    }
 })
 
 export const {reset} = authSlice.actions
