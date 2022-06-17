@@ -11,3 +11,7 @@ export const registerService = async (userData) => {
 
     return response.data
 }
+
+export const logoutService = () => {
+    localStorage.removeItem('user')
+}

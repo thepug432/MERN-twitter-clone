@@ -52,7 +52,6 @@ function Register() {
         email,
         password
       }
-      console.log('ran');
       dispatch(register(userData))
     }
   }
@@ -81,11 +80,11 @@ function Register() {
             </form>
 
             <div className='mx-16 flex mb-16'>
-            <button onClick={submit} transition={{ duration: .3 }} type="submit" className='bg-red-500 p-3 px-5 rounded-lg text-white'>
+            <motion.button whileHover={{ scale: 1.1 }} onClick={submit} transition={{ duration: .3 }} type="submit" className='bg-red-500 p-3 px-5 rounded-lg text-white'>
               <div className='flex'>Create account!<div className='my-auto ml-2'><IoCreateOutline /></div></div>
-            </button>
+            </motion.button>
             <motion.div whileHover={{ scale: 1.1 }} transition={{ duration: .3 }} className='ml-auto my-auto'>
-              <Link to={'/'}>
+              <Link to={'/login'}>
                 Already have an account?
               </Link>
             </motion.div>
