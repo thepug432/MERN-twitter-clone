@@ -16,18 +16,16 @@ const register = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error('User with that name exists')
     }
-
     // Hash password
     const salt = await bcrypt.genSalt(10)
     const hashed = await bcrypt.hash(password, salt)
-
+    console.log('above');
     // create user
     const user = await User.create({
         username: username,
-        email: email,
         password: hashed
     })
-
+    console.log('user');
     if (user) {
         res.status(201).json({
             id: user.id,
@@ -42,9 +40,8 @@ const register = asyncHandler(async (req, res) => {
 
 const login = asyncHandler(async (req, res) => {
     const {username, email, password} = req.body
-
+    console.log(username);
     const user = await User.findOne({username})
-    
     if(user && (await bcrypt.compare(password, user.password))){
         res.status(201).json({
             id: user.id,

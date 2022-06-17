@@ -10,12 +10,11 @@ import { register, reset } from '../features/auth/authSlice'
 function Register() {
   const [formData, setFormData] = useState({
     username: '',
-    email: '',
     password: '',
     confirmPassword: ''
   })
 
-  const {username, email, password, confirmPassword} = formData
+  const {username, password, confirmPassword} = formData
   
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -49,8 +48,7 @@ function Register() {
     } else{
       const userData = {
         username,
-        email,
-        password
+        password,
       }
       dispatch(register(userData))
     }
@@ -70,9 +68,7 @@ function Register() {
             <form className='flex flex-col m-5 mx-16 text-black'>
               <input value={username} type='text' placeholder='Username' name='username' className='p-2 my-4 rounded-lg' onChange={changeState}/>
 
-              <label htmlFor='email' className='text-sm text-gray-100'>Email is optional, and we will never share your email with anyone</label>
-              <input value={email} type='text' placeholder='Email' name='email' className='p-2 my-4 rounded-lg' onChange={changeState}/>
-                
+    
 
               <input value={password} type='password' placeholder='Password' name='password' className='p-2 my-4 rounded-lg' onChange={changeState}/>
               <input value={confirmPassword} type='password' placeholder='Confirm password' name='confirmPassword' className='p-2 my-4 rounded-lg' onChange={changeState}/>
@@ -80,9 +76,9 @@ function Register() {
             </form>
 
             <div className='mx-16 flex mb-16'>
-            <motion.button whileHover={{ scale: 1.1 }} onClick={submit} transition={{ duration: .3 }} type="submit" className='bg-red-500 p-3 px-5 rounded-lg text-white'>
+            <button onClick={submit} transition={{ duration: .3 }} type="submit" className='bg-red-500 p-3 px-5 rounded-lg text-white'>
               <div className='flex'>Create account!<div className='my-auto ml-2'><IoCreateOutline /></div></div>
-            </motion.button>
+            </button>
             <motion.div whileHover={{ scale: 1.1 }} transition={{ duration: .3 }} className='ml-auto my-auto'>
               <Link to={'/login'}>
                 Already have an account?
