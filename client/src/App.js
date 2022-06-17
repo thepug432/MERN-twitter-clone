@@ -16,5 +16,5 @@ function App() {
     </Router>
   );
 }
-
+//store.getState().auth.user
 export default App;
