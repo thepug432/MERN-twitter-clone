@@ -4,9 +4,9 @@ const asyncHandler = require('express-async-handler')
 const User = require('../model/userModel')
 
 const register = asyncHandler(async (req, res) => {
-    const {username, email, password, conpass} = req.body
+    const {username, email, password} = req.body
 
-    if (!username || !password || !conpass) {
+    if (!username || !password) {
         res.status(400)
         throw new Error('Not all need fields filled')
     }
@@ -15,11 +15,6 @@ const register = asyncHandler(async (req, res) => {
     if (userExists) {
         res.status(400)
         throw new Error('User with that name exists')
-    }
-
-    if (password !== conpass) {
-        res.status(400)
-        throw new Error('Password and confirm are not the same')
     }
 
     // Hash password
