@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {store} from '../app/store'
+import Post from '../components/Post';
 import Wrapper from '../components/Wrapper';
 
 function Dashboard() {
@@ -17,8 +18,10 @@ function Dashboard() {
 
   return (
     <Wrapper>
-        <div className='flex flex-col w-1/2'>
-        asdasdsadasd
+        <div className='flex flex-col w-2/4'>
+        
+          
+
         </div>
     </Wrapper>
   )
