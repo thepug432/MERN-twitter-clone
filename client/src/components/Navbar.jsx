@@ -9,7 +9,7 @@ import { GoTriangleRight } from 'react-icons/go'
 
 function Navbar() {
     const [seeNav, setSeeNav] = useState(false)
-    const divClass = `sm:flex flex-col p-3 bg-black pr-9 ${seeNav? 'hidden': 'flex relative'}`
+    const divClass = `sm:flex flex-col p-3 bg-zinc-900 pr-9 ${seeNav? 'hidden': 'flex relative'}`
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const {user} = useSelector((state) => state.auth)
@@ -25,13 +25,13 @@ function Navbar() {
     }
 
     return (
-        <nav className='sm:h-screen h-min border-white border-r sm:bg-black border-b-red-100 sm:w-1/4 w-full p-0'> 
+        <nav className='sm:h-screen h-min border-white border-r sm:bg-zinc-900 border-b-red-100 sm:w-1/4 w-full p-0'> 
             {seeNav ? 
-                <button className='sm:hidden block bg-black text-white p-2 px-4 rounded-r-xl' onClick={flipnav}>
+                <button className='sm:hidden block bg-zinc-900 text-white p-2 px-4 rounded-r-xl' onClick={flipnav}>
                     <GoTriangleRight size={25}/>
                 </button>
             : 
-                <div className='flex bg-black text-white p-2 px-4 sm:hidden' onClick={flipnav}>
+                <div className='flex bg-zinc-900 text-white p-2 px-4 sm:hidden' onClick={flipnav}>
                     <button>
                     <IoCloseOutline size={25}/>
                     </button>
