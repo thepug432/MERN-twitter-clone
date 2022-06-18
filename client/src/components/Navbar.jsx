@@ -9,7 +9,7 @@ import { GoTriangleRight } from 'react-icons/go'
 
 function Navbar() {
     const [seeNav, setSeeNav] = useState(false)
-    const divClass = `sm:flex flex-col p-3 bg-black pr-9 ${seeNav? 'hidden': 'flex'}`
+    const divClass = `sm:flex flex-col p-3 bg-black pr-9 ${seeNav? 'hidden': 'flex relative'}`
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const {user} = useSelector((state) => state.auth)
@@ -25,7 +25,7 @@ function Navbar() {
     }
 
     return (
-        <nav className='h-screen border-white border-r sm:bg-black border-b-red-100 sm:w-1/4 w-full p-0'> 
+        <nav className='sm:h-screen h-min border-white border-r sm:bg-black border-b-red-100 sm:w-1/4 w-full p-0 absolute'> 
 
             
             {seeNav ? 

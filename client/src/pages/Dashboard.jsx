@@ -16,9 +16,9 @@ function Dashboard() {
   
 
   return (
-    <div>
+    <div className='flex sm:flex-row flex-col'>
       <Navbar />
-      
+      Lorem25
     </div>
   )
 }
