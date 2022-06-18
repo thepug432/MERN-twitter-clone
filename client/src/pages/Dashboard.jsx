@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {store} from '../app/store'
-import Navbar from '../components/Navbar';
+import Wrapper from '../components/Wrapper';
 
 function Dashboard() {
   const navigate = useNavigate()
@@ -16,10 +16,11 @@ function Dashboard() {
   
 
   return (
-    <div className='flex sm:flex-row flex-col'>
-      <Navbar />
-      Lorem25
-    </div>
+    <Wrapper>
+        <div className='flex flex-col w-1/2'>
+        asdasdsadasd
+        </div>
+    </Wrapper>
   )
 }
 

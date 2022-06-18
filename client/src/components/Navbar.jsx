@@ -25,9 +25,7 @@ function Navbar() {
     }
 
     return (
-        <nav className='sm:h-screen h-min border-white border-r sm:bg-black border-b-red-100 sm:w-1/4 w-full p-0 absolute'> 
-
-            
+        <nav className='sm:h-screen h-min border-white border-r sm:bg-black border-b-red-100 sm:w-1/4 w-full p-0'> 
             {seeNav ? 
                 <button className='sm:hidden block bg-black text-white p-2 px-4 rounded-r-xl' onClick={flipnav}>
                     <GoTriangleRight size={25}/>
@@ -40,7 +38,6 @@ function Navbar() {
                 </div>                    
             }
             
-
             <div className={divClass}>
                 <Navbutton link={'/'} text={'Home'}/>
                 <Navbutton link={'/explore'} text={'Explore'}/>
@@ -70,8 +67,9 @@ function Navbar() {
                 className='bg-red-600 rounded-xl p-5 px-10 text-white mx-auto mt-24'>
                     New Post 
                 </motion.button>
-            </div>  
+            </div> 
         </nav>
+        
     )
 }
 
