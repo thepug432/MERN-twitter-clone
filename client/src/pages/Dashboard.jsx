@@ -39,7 +39,7 @@ function Dashboard() {
 
           {posts === false ?
             //posts are being fetched
-            <div className='flex flex-col min-h-screen w-full text-white'>
+            <div className='flex flex-col w-full text-white'>
                 <div className='animate-spin mx-auto mt-auto'> 
                   <VscLoading size={100}/>  
                 </div>
@@ -48,7 +48,10 @@ function Dashboard() {
             : 
 
             // no posts
-            <div>No posts</div>
+            <div className='flex flex-col w-full text-white'>
+              <p className='mx-auto'><strong>No posts</strong></p>
+              <p className='mx-auto'>Post something, follow someone, and it will show up. Or switch modes and continue browsing</p>
+            </div>
           }
 
         </div>
