@@ -5,6 +5,7 @@ import {store} from '../app/store'
 import {VscLoading} from 'react-icons/vsc'
 import Post from '../components/Post';
 import Wrapper from '../components/Wrapper';
+import Newpost from '../components/Newpost'
 
 function Dashboard() {
   const [posts, setPosts] = useState(false)
@@ -27,8 +28,8 @@ function Dashboard() {
 
   return (
     <Wrapper>
-        <div className='flex flex-col sm:w-2/4 w-full'>
-        
+        <div className='flex flex-col sm:w-2/4 w-full min-h-screen'>
+          <Newpost />
           
           {posts &&
             // posts exist
@@ -50,7 +51,8 @@ function Dashboard() {
             // no posts
             <div className='flex flex-col w-full text-white'>
               <p className='mx-auto'><strong>No posts</strong></p>
-              <p className='mx-auto'>Post something, follow someone, and it will show up. Or switch modes and continue browsing</p>
+              <p className='mx-auto'>Post something, follow someone, and it will show up.</p>
+              <p className='mx-auto'>Or, switch modes and continue browsing</p>
             </div>
           }
 
