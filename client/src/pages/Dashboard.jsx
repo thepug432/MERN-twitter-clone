@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import {store} from '../app/store'
+import {VscLoading} from 'react-icons/vsc'
 import Post from '../components/Post';
 import Wrapper from '../components/Wrapper';
 
@@ -26,7 +27,7 @@ function Dashboard() {
 
   return (
     <Wrapper>
-        <div className='flex flex-col w-2/4'>
+        <div className='flex flex-col sm:w-2/4 w-full'>
         
           
           {posts &&
@@ -38,7 +39,12 @@ function Dashboard() {
 
           {posts === false ?
             //posts are being fetched
-            <div> Loading </div>
+            <div className='flex flex-col min-h-screen w-full text-white'>
+                <div className='animate-spin mx-auto mt-auto'> 
+                  <VscLoading size={100}/>  
+                </div>
+              <h1 className='mx-auto mb-auto'>Loading posts...</h1>
+            </div>
             : 
 
             // no posts

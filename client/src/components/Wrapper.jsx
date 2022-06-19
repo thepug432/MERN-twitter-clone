@@ -4,7 +4,7 @@ import Sidebar from './Sidebar'
 
 function Wrapper({children}) {
   return (
-    <div className='flex sm:flex-row flex-col'>
+    <div className='flex sm:flex-row flex-col bg-zinc-900'>
         <Navbar />
         {children}
         <Sidebar />
