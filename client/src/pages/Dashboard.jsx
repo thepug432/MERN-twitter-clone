@@ -24,6 +24,7 @@ function Dashboard() {
   const fetchPosts = async () => {
     const response = await (await axios.get('/api/posts/allposts')).data
     setPosts(response)
+    console.log(posts);
   }
 
   return (
@@ -31,30 +32,32 @@ function Dashboard() {
         <div className='flex flex-col sm:w-2/4 w-full min-h-screen'>
           <Newpost />
           
-          {posts &&
+          {posts ?
             // posts exist
             posts.map(post => 
-              <Post poster={post.poster} date={post.timestamps} content={post.text}/>
+              <Post poster={post.poster} date={post.createdAt} content={post.text} key={post._id}/>
             )
+            :
+            posts === false ?
+              //posts are being fetched
+              <div className='flex flex-col w-full text-white'>
+                  <div className='animate-spin mx-auto mt-auto'> 
+                    <VscLoading size={100}/>  
+                  </div>
+                <h1 className='mx-auto mb-auto'>Loading posts...</h1>
+              </div>
+              : 
+  
+              // no posts
+              <div className='flex flex-col w-full text-white'>
+                <p className='mx-auto'><strong>No posts</strong></p>
+                <p className='mx-auto'>Post something, follow someone, and it will show up.</p>
+                <p className='mx-auto'>Or, switch modes and continue browsing</p>
+              </div>
+            
           }
 
-          {posts === false ?
-            //posts are being fetched
-            <div className='flex flex-col w-full text-white'>
-                <div className='animate-spin mx-auto mt-auto'> 
-                  <VscLoading size={100}/>  
-                </div>
-              <h1 className='mx-auto mb-auto'>Loading posts...</h1>
-            </div>
-            : 
-
-            // no posts
-            <div className='flex flex-col w-full text-white'>
-              <p className='mx-auto'><strong>No posts</strong></p>
-              <p className='mx-auto'>Post something, follow someone, and it will show up.</p>
-              <p className='mx-auto'>Or, switch modes and continue browsing</p>
-            </div>
-          }
+          
 
         </div>
     </Wrapper>
