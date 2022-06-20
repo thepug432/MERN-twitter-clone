@@ -70,5 +70,5 @@ const generateToken = (id) => {
 module.exports = {
     register,
     login,
-    getdata
+    getdata,
 }

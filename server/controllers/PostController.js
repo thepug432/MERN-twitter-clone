@@ -2,10 +2,11 @@ const asyncHandler = require('express-async-handler')
 const Posts = require('../model/postsModel')
 
 const getPosts = asyncHandler(async (req, res) => {
-    let posts = await Posts.find()
+    let posts = await Posts.find().sort('-createdAt');
     if (posts.length === 0) {
         posts = ''
     }
+    console.log(posts);
     res.status(200).json(posts)
 })
 
