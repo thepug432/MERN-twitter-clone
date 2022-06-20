@@ -9,7 +9,12 @@ const postSchema = mongoose.Schema({
     text: {
         type: String,
         required: true
-    }
+    },
+    likes: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        unique: true
+    }]
 }, {
     timestamps: true
 })

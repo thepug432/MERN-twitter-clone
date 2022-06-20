@@ -1,46 +1,26 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { BiCommentDetail } from 'react-icons/bi'
 
-function Post({posterId, date, content, id}) {
+function Post({posterObj, date, content, id}) {
   const navigate = useNavigate()
-  const [posterObj, setPosterObj] = useState({
-    id: posterId,
-    username: ''
-  })
-
-  useEffect(() => {
-    const Getname = async () => {
-      // get username
-      try {
-        const name = await (await axios.get('api/userData/usernameFromId', {params: {
-          id: posterObj.id
-        }})).data
-        setPosterObj((prevState) => ({
-          ...prevState,
-          username: name.response
-        }))
-      } 
-      // catch error
-      catch (error) {
-        setPosterObj((prevState) => ({
-          ...prevState,
-          username: 'ERROR'
-        }))
-      }
-    }
-    Getname()
-  },[posterObj.id])
-
+  const authState = useSelector(state => state.auth) 
+  
   const goToPost = () => {
     navigate(`post/${id}`)
   }
 
-  const like = () => {
+  const like = async () => {
     console.log('liked');
+    const data = { id: id }
+    const config = {
+      headers: { Authorization: `Bearer ${authState.user.token}` }
+    };
+    const response = await axios.put('/api/posts/like', data, config)
   }
   
   return (
@@ -49,13 +29,13 @@ function Post({posterId, date, content, id}) {
       key={id}
     >
         <div className='flex p-3'>
-            <Link to={`user/${posterId}`}>
+            <Link to={`user/${posterObj._id}`}>
               <motion.h1
                 whileHover={{ scale: 1.1 }}
                 transition={{ duration: .25 }} 
-                className='text-xl align-middle ml-2 cursor-pointer'
+                className='text-xl align-middle ml-2 cursor-pointer hover:underline'
               >
-                {posterObj.username ? posterObj.username : 'Loading...'}
+                {posterObj.username}
               </motion.h1>
             </Link>
             <div className='align-middle table-cell ml-auto mr-2'>

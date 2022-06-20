@@ -33,7 +33,7 @@ function Dashboard() {
           {posts ?
             // posts exist
             posts.map(post => 
-              <Post posterId={post.poster} date={post.createdAt} content={post.text} id={post._id}/>
+              <Post posterObj={post.poster} date={post.createdAt} content={post.text} id={post._id} key={post._id}/>
             )
             :
             posts === false ?
