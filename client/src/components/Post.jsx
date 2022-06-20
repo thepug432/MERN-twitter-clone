@@ -9,7 +9,6 @@ import { BsSuitHeartFill, BsHeart } from 'react-icons/bs'
 function Post({forceUpdate, posterObj, postObj }) {
   const navigate = useNavigate()
   const authState = useSelector(state => state.auth) 
-  
   const goToPost = () => {
     navigate(`post/${postObj._id}`)
   }
@@ -19,13 +18,16 @@ function Post({forceUpdate, posterObj, postObj }) {
     const config = {
       headers: { Authorization: `Bearer ${authState.user.token}` }
     };
+    let response;
     if(postObj.likes.indexOf(authState.user.id) >= 0){
-      await axios.put('/api/posts/unlike', data, config)
+      response = await axios.put('/api/posts/unlike', data, config)
     } else{
-      await axios.put('/api/posts/like', data, config)
+      response = await axios.put('/api/posts/like', data, config)
     }
+
     forceUpdate()
   }
+  
   return (
     <div
       className='bg-zinc-800 text-white p-3' 
@@ -45,7 +47,7 @@ function Post({forceUpdate, posterObj, postObj }) {
             </div>
         </div>
         <p className='mx-2 p-3'>
-            {postObj.content}
+            {postObj.text}
         </p>
         <div className='flex mx-4'>
           {/* like */}

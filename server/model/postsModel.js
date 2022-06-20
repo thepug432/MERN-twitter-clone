@@ -13,7 +13,6 @@ const postSchema = mongoose.Schema({
     likes: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        unique: true
     }]
 }, {
     timestamps: true

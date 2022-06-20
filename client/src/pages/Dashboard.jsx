@@ -30,10 +30,11 @@ function Dashboard() {
     const response = await (await axios.get('/api/posts/allposts')).data
     setPosts(response)
   }
+  
   return (
     <Wrapper>
         <div className='flex flex-col sm:w-2/4 w-full min-h-screen'>
-          <Newpost />
+          <Newpost forceUpdate={forceUpdate}/>
           
           {posts ?
             // posts exist

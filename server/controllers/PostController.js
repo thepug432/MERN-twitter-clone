@@ -10,16 +10,16 @@ const getPosts = asyncHandler(async (req, res) => {
 })
 
 const createPost = asyncHandler(async (req, res) => {
-    if (!req.body.text){
+    if (!req.body.text || req.body.text === ''){
         res.status(400)
         throw new Error('Please add text field')
     }
-    const goal = await Posts.create({
+    const post = Posts.create({
         text: req.body.text,
-        poster: req.user.id
+        poster: req.user.id,
+        likes: []
     })
-
-    res.status(200).json(goal)
+    res.status(200).json(post)
 })
 
 const likePost = asyncHandler(async (req, res) => {
@@ -32,7 +32,7 @@ const likePost = asyncHandler(async (req, res) => {
 const unlikePost = asyncHandler(async (req, res) => {
     const likerId = req.user.id
     const postId = req.body.id
-    await Posts.findByIdAndUpdate(postId, {$pull: {likes: likerId}});
+    await Posts.findByIdAndUpdate(postId, {$pull: {likes: likerId}})
     res.status(200).json({status: true})
 })
 

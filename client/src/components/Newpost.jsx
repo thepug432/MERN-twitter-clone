@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 
-function Newpost() {
+function Newpost({forceUpdate}) {
     const authState = useSelector(state => state.auth)
     const [content, setContent] = useState()
 
@@ -16,7 +16,9 @@ function Newpost() {
         const config = {
             headers: { Authorization: `Bearer ${authState.user.token}` }
         };
-        const response = await axios.post('/api/posts/create', data, config)
+        await axios.post('/api/posts/create', data, config)
+        forceUpdate()
+        setContent('')
     }
 
     return (
