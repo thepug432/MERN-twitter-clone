@@ -25,7 +25,6 @@ function Dashboard() {
     const response = await (await axios.get('/api/posts/allposts')).data
     setPosts(response)
   }
-
   return (
     <Wrapper>
         <div className='flex flex-col sm:w-2/4 w-full min-h-screen'>
@@ -34,7 +33,7 @@ function Dashboard() {
           {posts ?
             // posts exist
             posts.map(post => 
-              <Post posterId={post.poster} date={post.createdAt} content={post.text} key={post._id}/>
+              <Post posterId={post.poster} date={post.createdAt} content={post.text} id={post._id}/>
             )
             :
             posts === false ?
