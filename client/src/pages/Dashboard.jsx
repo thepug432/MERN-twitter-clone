@@ -9,6 +9,7 @@ import Newpost from '../components/Newpost'
 
 function Dashboard() {
   const [posts, setPosts] = useState(false)
+  const [update, setupdate] = useState(0)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -19,7 +20,11 @@ function Dashboard() {
 
     // fetch posts
     fetchPosts()
-  }, [navigate])
+  }, [navigate, update])
+
+  const forceUpdate = () => {
+    setupdate(update+1)
+  }
 
   const fetchPosts = async () => {
     const response = await (await axios.get('/api/posts/allposts')).data
@@ -33,7 +38,7 @@ function Dashboard() {
           {posts ?
             // posts exist
             posts.map(post => 
-              <Post posterObj={post.poster} date={post.createdAt} content={post.text} id={post._id} key={post._id}/>
+              <Post forceUpdate={forceUpdate} posterObj={post.poster} postObj={post} key={post._id}/>
             )
             :
             posts === false ?

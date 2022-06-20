@@ -25,13 +25,20 @@ const createPost = asyncHandler(async (req, res) => {
 const likePost = asyncHandler(async (req, res) => {
     const likerId = req.user.id
     const postId = req.body.id
-    const post = await Posts.findById(postId)
-    console.log(post.likes);
-    res.status(200)
+    await Posts.findByIdAndUpdate(postId, {$addToSet: {likes: likerId}})
+    res.status(200).json({status: true})
+})
+
+const unlikePost = asyncHandler(async (req, res) => {
+    const likerId = req.user.id
+    const postId = req.body.id
+    await Posts.findByIdAndUpdate(postId, {$pull: {likes: likerId}});
+    res.status(200).json({status: true})
 })
 
 module.exports = {
     getPosts, 
     createPost,
-    likePost
+    likePost,
+    unlikePost
 }

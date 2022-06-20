@@ -3,30 +3,32 @@ import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { AiOutlineHeart } from 'react-icons/ai'
 import { BiCommentDetail } from 'react-icons/bi'
+import { BsSuitHeartFill, BsHeart } from 'react-icons/bs'
 
-function Post({posterObj, date, content, id}) {
+function Post({forceUpdate, posterObj, postObj }) {
   const navigate = useNavigate()
   const authState = useSelector(state => state.auth) 
   
   const goToPost = () => {
-    navigate(`post/${id}`)
+    navigate(`post/${postObj._id}`)
   }
 
   const like = async () => {
-    console.log('liked');
-    const data = { id: id }
+    const data = { id: postObj._id }
     const config = {
       headers: { Authorization: `Bearer ${authState.user.token}` }
     };
-    const response = await axios.put('/api/posts/like', data, config)
+    if(postObj.likes.indexOf(authState.user.id) >= 0){
+      await axios.put('/api/posts/unlike', data, config)
+    } else{
+      await axios.put('/api/posts/like', data, config)
+    }
+    forceUpdate()
   }
-  
   return (
     <div
       className='bg-zinc-800 text-white p-3' 
-      key={id}
     >
         <div className='flex p-3'>
             <Link to={`user/${posterObj._id}`}>
@@ -39,21 +41,28 @@ function Post({posterObj, date, content, id}) {
               </motion.h1>
             </Link>
             <div className='align-middle table-cell ml-auto mr-2'>
-              <h2 className='text-sm text-gray-200 inline'>{new Date(date).toGMTString()}</h2>
+              <h2 className='text-sm text-gray-200 inline'>{new Date(postObj.date).toGMTString()}</h2>
             </div>
         </div>
         <p className='mx-2 p-3'>
-            {content}
+            {postObj.content}
         </p>
         <div className='flex mx-4'>
           {/* like */}
-          <motion.i 
-            className='cursor-pointer' 
-            onClick={like}
-            whileHover={{ scale: 1.1 }}
-          >
-            <AiOutlineHeart size={20}/>
-          </motion.i>
+            <motion.i 
+              className='cursor-pointer flex' 
+              onClick={like}
+              whileHover={{ scale: 1.1 }}
+            >
+              {postObj.likes.indexOf(authState.user.id) >= 0 ? 
+                <div className='text-red-500'>
+                  <BsSuitHeartFill size={20}/> 
+                </div>
+              :   
+                <BsHeart size={20}/> 
+              }
+              <p>{postObj.likes.length}</p>
+            </motion.i>
           {/* see comments */}
           <motion.i 
             className='mx-3 cursor-pointer' 
