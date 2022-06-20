@@ -24,7 +24,6 @@ function Dashboard() {
   const fetchPosts = async () => {
     const response = await (await axios.get('/api/posts/allposts')).data
     setPosts(response)
-    console.log(posts);
   }
 
   return (

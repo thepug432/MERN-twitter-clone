@@ -25,6 +25,7 @@ function Newpost() {
                 className='bg-zinc-800 rounded-3xl p-3 resize-none h-36' 
                 value={content} 
                 onChange={changeContent} 
+                placeholder="New Post..."
             />
             <motion.button 
                 whileHover={{ scale: 1.1, backgroundColor: "rgb(239, 68, 68)" }} 
