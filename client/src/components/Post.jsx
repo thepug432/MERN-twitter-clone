@@ -41,7 +41,7 @@ function Post({forceUpdate, posterObj, postObj }) {
               </motion.h1>
             </Link>
             <div className='align-middle table-cell ml-auto mr-2'>
-              <h2 className='text-sm text-gray-200 inline'>{new Date(postObj.date).toGMTString()}</h2>
+              <h2 className='text-sm text-gray-200 inline'>{new Date(postObj.createdAt).toGMTString()}</h2>
             </div>
         </div>
         <p className='mx-2 p-3'>
