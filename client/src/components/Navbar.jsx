@@ -1,19 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import { logout, reset } from '../features/auth/authSlice';
 import Navbutton from './Navbutton';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { IoCloseOutline } from 'react-icons/io5'
 import { GoTriangleRight } from 'react-icons/go'
+import Newpost from './Newpost'; 
 
 function Navbar() {
     const [seeNav, setSeeNav] = useState(false)
-    const divClass = `sm:flex flex-col p-3 bg-zinc-900 pr-9 ${seeNav? 'hidden': 'flex relative'}`
+    const [seeNew, setSeeNew] = useState(false)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const {user} = useSelector((state) => state.auth)
 
+    const divClass = `sm:flex flex-col p-3 bg-zinc-900 pr-9 ${seeNav? 'hidden': 'flex relative'}`
+    
     const logoutFunc = () => {
         dispatch(logout())
         dispatch(reset())
@@ -22,6 +25,10 @@ function Navbar() {
 
     const flipnav = () => {
         setSeeNav(!seeNav)
+    }
+
+    const flipSeeNew = () => {
+        setSeeNew(!seeNew)
     }
 
     return (
@@ -64,10 +71,28 @@ function Navbar() {
                 whileHover={{ scale: 1.1, backgroundColor: "rgb(239, 68, 68)" }} 
                 whileTap={{ scale: .9 }} 
                 transition={{ duration: .3 }}
+                onClick={flipSeeNew}
                 className='bg-red-600 rounded-xl p-5 px-10 text-white mx-auto mt-24'>
-                    New Post 
+                    {seeNew ?
+                        <>Hide</>
+                    :
+                        <>New Post</>
+                    }  
                 </motion.button>
+                <AnimatePresence>
+                    {seeNew &&
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: .3 }}
+                        >
+                            <Newpost />
+                        </motion.div>
+                    } 
+                </AnimatePresence>
             </div> 
+            
         </nav>
         
     )

@@ -17,7 +17,9 @@ function Newpost({forceUpdate}) {
             headers: { Authorization: `Bearer ${authState.user.token}` }
         };
         await axios.post('/api/posts/create', data, config)
-        forceUpdate()
+        if (forceUpdate) {
+            forceUpdate()
+        }
         setContent('')
     }
 
