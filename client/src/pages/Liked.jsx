@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import Wrapper from '../components/Wrapper'
+import LoadingPosts from '../components/LoadingPosts'
 
 function Liked() {
     const navigate = useNavigate()
@@ -26,7 +27,7 @@ function Liked() {
                     :
                     posts === false ?
                         //loading
-                        <div>Loading...</div>
+                        <LoadingPosts />
                         :
                         //if liked posts do not exist
                         <div></div>

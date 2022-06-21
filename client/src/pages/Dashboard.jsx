@@ -6,6 +6,7 @@ import {VscLoading} from 'react-icons/vsc'
 import Post from '../components/Post';
 import Wrapper from '../components/Wrapper';
 import Newpost from '../components/Newpost'
+import LoadingPosts from '../components/LoadingPosts'
 
 function Dashboard() {
   const [posts, setPosts] = useState(false)
@@ -44,12 +45,7 @@ function Dashboard() {
             :
             posts === false ?
               //posts are being fetched
-              <div className='flex flex-col w-full text-white'>
-                  <div className='animate-spin mx-auto mt-auto'> 
-                    <VscLoading size={100}/>  
-                  </div>
-                <h1 className='mx-auto mb-auto'>Loading posts...</h1>
-              </div>
+              <LoadingPosts />
               : 
   
               // no posts
