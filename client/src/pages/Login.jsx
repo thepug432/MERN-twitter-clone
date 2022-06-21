@@ -17,7 +17,7 @@ function Login() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const {user, isLoading, isError, isSuccess, message} = useSelector((state) => {return state.auth} )
+  const {user, isLoading, isError, isSuccess, message} = useSelector((state) => {return state.auth})
 
   useEffect(() => {
     if (isError) {

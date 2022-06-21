@@ -50,8 +50,8 @@ function Navbar() {
                 <Navbutton link={'/explore'} text={'Explore'}/>
                 {user ?
                     <>
-                        <Navbutton link={'/Likes'} text={'Likes'} />
-                        <Navbutton link={'/Messages'} text={'Messages'} />
+                        <Navbutton link={'/liked'} text={'Likes'} />
+                        <Navbutton link={'/messages'} text={'Messages'} />
 
                         <motion.button 
                         onClick={logoutFunc}

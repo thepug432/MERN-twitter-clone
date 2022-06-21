@@ -33,7 +33,7 @@ function Dashboard() {
   
   return (
     <Wrapper>
-        <div className='flex flex-col sm:w-2/4 w-full min-h-screen'>
+        <div className='flex flex-col min-h-screen'>
           <Newpost forceUpdate={forceUpdate}/>
           
           {posts ?

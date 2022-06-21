@@ -4,14 +4,19 @@ import './App.css';
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard';
 import Register from './pages/Register';
+import Liked from './pages/Liked';
 
 function App() {
   return (
     <Router>
       <Routes>
+        {/* auth routes */}
         <Route path='/login' element={<Login/>} />
         <Route path='/register' element={<Register/>} />
+
+        {/* protected routes */}
         <Route path='/' element={<Dashboard/>} />
+        <Route path='/liked' element={<Liked/>} />
       </Routes>
     </Router>
   );
