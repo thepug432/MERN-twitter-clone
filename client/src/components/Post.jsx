@@ -33,7 +33,7 @@ function Post({forceUpdate, posterObj, postObj, hidecomment = false }) {
       className='bg-zinc-800 text-white p-3' 
     >
         <div className='flex p-3'>
-            <Link to={`user/${posterObj._id}`}>
+            <Link to={`/user/${posterObj._id}`}>
               <motion.h1
                 whileHover={{ scale: 1.1 }}
                 transition={{ duration: .25 }} 

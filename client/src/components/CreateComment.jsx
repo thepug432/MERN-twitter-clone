@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
-function CreateComment({forceupdate, postid}) {
+function CreateComment({forceUpdate, postid}) {
     const [content, setContent] = useState('')
     const authState = useSelector(state => state.auth)
 
@@ -19,14 +19,16 @@ function CreateComment({forceupdate, postid}) {
         const config = {
             headers: { Authorization: `Bearer ${authState.user.token}` }
         };
-        const response = await axios.post('/api/comments/create', body, config)
+        const response = await(await axios.post('/api/comments/create', body, config)).data
         if (response.msg !== true) {
             console.log('error');
             return
         }
-        if(forceupdate){
-            forceupdate()
+        
+        if(forceUpdate){
+            forceUpdate()
         }
+        setContent('')
         //error
     }
 

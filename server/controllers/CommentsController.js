@@ -22,7 +22,7 @@ const createComment = asyncHandler(async(req,res) => {
 const getComment = asyncHandler(async(req,res) => {
     const id = req.query.id
     
-    const comments = await Comment.find({post: id}).populate('commenter', 'username');
+    const comments = await Comment.find({post: id}).sort('-createdAt').populate('commenter', 'username');
 
     res.status(200).json(comments)
 })

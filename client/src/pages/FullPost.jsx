@@ -5,6 +5,7 @@ import CreateComment from '../components/CreateComment'
 import LoadingPosts from '../components/LoadingPosts'
 import Post from '../components/Post'
 import Wrapper from '../components/Wrapper'
+import Comment from '../components/Comment'
 
 function FullPost() {
   const [post, setPost] = useState(false)
@@ -21,6 +22,7 @@ function FullPost() {
     getPost()
 
     const getComment = async () => {
+      console.log('ran');
       const response = await (await axios.get('/api/comments/commentsbyid', { params: { id: id } })).data
       setComments(response)
     }
@@ -39,7 +41,6 @@ function FullPost() {
     )
   }
 
-  
   return (
     <Wrapper>
       <div className='text-white'>
@@ -57,7 +58,10 @@ function FullPost() {
         {/* get comments */}
         {comments ?
           //comments exist
-          <div>comments exists</div>
+          comments.map((comment) => 
+            <Comment comment={comment} key={comment._id}/>
+          )  
+          
         :
           post === false ?
             <div>comments loading</div>
