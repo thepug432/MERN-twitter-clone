@@ -20,6 +20,12 @@ function FullPost() {
     }
     getPost()
 
+    const getComment = async () => {
+      const response = await (await axios.get('/api/comments/commentsbyid', { params: { id: id } })).data
+      setComments(response)
+    }
+    getComment()
+
     //get comment
   }, [update, id])
 
@@ -40,7 +46,7 @@ function FullPost() {
         {post ?
             <>
               <Post forceUpdate={forceUpdate} posterObj={post.poster} postObj={post} key={post._id} hidecomment={true}/>
-              <CreateComment forceUpdate={forceUpdate} />
+              <CreateComment forceUpdate={forceUpdate} postid={id}/>
             </>
           :
           <LoadingPosts />
