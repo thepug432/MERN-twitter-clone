@@ -38,6 +38,8 @@ function FullPost() {
       <div>404</div>
     )
   }
+
+  
   return (
     <Wrapper>
       <div className='text-white'>
