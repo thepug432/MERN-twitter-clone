@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router()
-const {getPosts, createPost, likePost, unlikePost, likedPosts} = require('../controllers/PostController')
+const {getPosts, createPost, likePost, unlikePost, likedPosts, postbyid} = require('../controllers/PostController')
 const {protect} = require('../middleware/authMiddleware')
 
 
 //get 
 router.get('/allposts', getPosts)
 router.get('/likedposts', protect, likedPosts)
+router.get('/postbyid', postbyid)
 
 // post
 router.post('/create', protect, createPost)

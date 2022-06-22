@@ -25,7 +25,6 @@ function Liked() {
                 headers: { Authorization: `Bearer ${authState.user.token}` }
             };
             const response = await (await axios.get('/api/posts/likedposts', config)).data
-            console.log(response);
             setPostsData(response)
         }
 
@@ -51,7 +50,7 @@ function Liked() {
                     }
                     </>
                     :
-                    postsData.posts === false ?
+                    postsData === false ?
                         //loading
                         <LoadingPosts />
                         :

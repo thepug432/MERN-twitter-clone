@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { BiCommentDetail } from 'react-icons/bi'
 import { BsSuitHeartFill, BsHeart } from 'react-icons/bs'
 
-function Post({forceUpdate, posterObj, postObj }) {
+function Post({forceUpdate, posterObj, postObj, hidecomment = false }) {
   const navigate = useNavigate()
   const authState = useSelector(state => state.auth) 
   const goToPost = () => {
@@ -66,13 +66,15 @@ function Post({forceUpdate, posterObj, postObj }) {
               <p>{postObj.likes.length}</p>
             </motion.i>
           {/* see comments */}
-          <motion.i 
+          {!hidecomment &&
+            <motion.i 
             className='mx-3 cursor-pointer' 
             onClick={goToPost}
             whileHover={{ scale: 1.1 }}
           >
             <BiCommentDetail size={20}/>
           </motion.i>
+          }
         </div>
     </div>
   )

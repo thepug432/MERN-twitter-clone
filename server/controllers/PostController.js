@@ -23,6 +23,14 @@ const likedPosts = asyncHandler(async(req, res) => {
     })
 })
 
+const postbyid = asyncHandler(async(req,res) => {
+    let post = await Posts.findById(req.query.id).populate('poster', 'username');
+    if (post === null) {
+        post = ''
+    }
+    res.status(200).json(post)
+})
+
 //post
 const createPost = asyncHandler(async (req, res) => {
     if (!req.body.text || req.body.text === ''){
@@ -55,7 +63,8 @@ const unlikePost = asyncHandler(async (req, res) => {
 module.exports = {
     getPosts, 
     likedPosts,
+    postbyid,
     createPost,
     likePost,
-    unlikePost
+    unlikePost,
 }
