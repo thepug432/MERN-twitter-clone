@@ -1,11 +1,27 @@
+import axios from 'axios'
 import { motion } from 'framer-motion'
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 
-function CreateComment() {
-    const [text, setText] = useState('')
+function CreateComment({forceupdate}) {
+    const [content, setContent] = useState('')
+    const authState = useSelector(state => state.auth)
 
     const change = (e) => {
-        setText(e.target.value)
+        setContent(e.target.value)
+    }
+
+    const sendComment = async () => {
+        const body = { content: content }
+        const config = {
+            headers: { Authorization: `Bearer ${authState.user.token}` }
+        };
+        const response = await axios.post('/api/comments/create', body, config)
+
+        if(forceupdate){
+            forceupdate()
+        }
+        //error
     }
 
     return (
@@ -13,7 +29,7 @@ function CreateComment() {
             <form>
                 <textarea 
                     className='bg-zinc-800 mx-auto p-5 rounded-xl w-full resize-none' 
-                    value={text} 
+                    value={content} 
                     onChange={change}
                     placeholder="New comment" 
                 />
@@ -23,6 +39,7 @@ function CreateComment() {
                 whileTap={{ scale: .9 }} 
                 transition={{ duration: .3 }}
                 className='bg-red-600 sm:mr-auto sm:ml-0 mx-auto mt-4 p-3 px-6 rounded-lg'
+                onClick={sendComment}
             >
                 Comment
             </motion.button>

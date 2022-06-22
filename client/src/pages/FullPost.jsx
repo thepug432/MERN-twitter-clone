@@ -40,7 +40,7 @@ function FullPost() {
         {post ?
             <>
               <Post forceUpdate={forceUpdate} posterObj={post.poster} postObj={post} key={post._id} hidecomment={true}/>
-              <CreateComment />
+              <CreateComment forceUpdate={forceUpdate} />
             </>
           :
           <LoadingPosts />
