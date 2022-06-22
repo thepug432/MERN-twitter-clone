@@ -10,7 +10,7 @@ function Post({forceUpdate, posterObj, postObj, hidecomment = false }) {
   const navigate = useNavigate()
   const authState = useSelector(state => state.auth) 
   const goToPost = () => {
-    navigate(`post/${postObj._id}`)
+    navigate(`/post/${postObj._id}`)
   }
 
   const like = async () => {

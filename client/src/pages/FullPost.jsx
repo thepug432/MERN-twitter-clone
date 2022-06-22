@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import CreateComment from '../components/CreateComment'
 import LoadingPosts from '../components/LoadingPosts'
 import Post from '../components/Post'
 import Wrapper from '../components/Wrapper'
@@ -37,7 +38,10 @@ function FullPost() {
 
         {/* get post */}
         {post ?
-            <Post forceUpdate={forceUpdate} posterObj={post.poster} postObj={post} key={post._id} hidecomment={true}/>
+            <>
+              <Post forceUpdate={forceUpdate} posterObj={post.poster} postObj={post} key={post._id} hidecomment={true}/>
+              <CreateComment />
+            </>
           :
           <LoadingPosts />
         }
