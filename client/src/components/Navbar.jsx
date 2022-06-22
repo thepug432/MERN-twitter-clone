@@ -32,7 +32,7 @@ function Navbar() {
     }
 
     return (
-        <nav className='sm:h-screen h-min sm:border-white sm:border-r sm:bg-zinc-900 sm:w-1/4 w-full p-0 sm:static absolute z-50'> 
+        <nav className='sm:min-h-screen h-min sm:bg-zinc-900 sm:w-1/4 w-full p-0 sm:static absolute z-50'> 
             {seeNav ? 
                 <button className='sm:hidden block bg-zinc-900 text-white p-2 px-4 rounded-r-xl' onClick={flipnav}>
                     <GoTriangleRight size={25}/>
