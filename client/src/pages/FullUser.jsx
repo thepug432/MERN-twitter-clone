@@ -4,7 +4,8 @@ import {WiTime2} from 'react-icons/wi'
 import Wrapper from '../components/Wrapper'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
-
+import LoadingPosts from '../components/LoadingPosts'
+import Post from '../components/Post'
 
 function FullUser() {
     const {id} = useParams()
@@ -14,6 +15,7 @@ function FullUser() {
         description: null,
         followers: null
     })
+    const [posts, setPosts] = useState(null)
     const [update, setUpdate] = useState(0)
 
     const forceUpdate = () => {
@@ -33,6 +35,13 @@ function FullUser() {
         }
         fetchUserData()
 
+        const fetchUserPosts = async () => {
+            const response = await(await axios.get('/api/posts/postbyposter', { params: {id: id} })).data
+            console.log(response);
+            setPosts(response)
+        }
+        fetchUserPosts()
+
     }, [update, id])
 
     return (
@@ -40,7 +49,13 @@ function FullUser() {
             {/* user information */}
             <div className='text-white flex flex-col border-b border-white p-2'>
                 <div className='flex'>
-                    <h1><strong>username</strong></h1>
+                    <h1><strong>
+                        {userData.username ?
+                            userData.username
+                        :
+                            <>loading....</>
+                        }
+                    </strong></h1>
                     <motion.button 
                         whileHover={{ scale: 1.1, backgroundColor: "rgb(239, 68, 68)" }} 
                         whileTap={{ scale: .9 }} 
@@ -56,15 +71,32 @@ function FullUser() {
                         <div className='my-auto'>
                             <WiTime2/>
                         </div>
-                        <time>Joined: date</time>
+                        <time>Joined: {userData.created ? new Date(userData.created).toGMTString() : <>loading...</>}</time>
                     </small>
                     <div>
-                        <small className='text-gray-400'><strong className='text-white'>int</strong> followers</small>
+                        <small className='text-gray-400'>
+                            <strong className='text-white'>
+                                {userData.followers !== null ? userData.followers : <>loading...</>}
+                            </strong> followers
+                        </small>
                     </div>
                 </div>
             </div>
 
-            <div>user posts</div>
+            <div className='text-white'>
+                {posts ?
+                    posts.map(post => <Post forceUpdate={forceUpdate} posterObj={post.poster} postObj={post} key={post._id}/>)
+                :
+                    posts === null ?
+                        <LoadingPosts />
+                    :
+                    // there are no posts
+                    <div className='flex flex-col'>
+                        <h1 className='text-center'><strong>No Posts</strong></h1>
+                        <p className='text-center'>This user has no posted anything.</p>
+                    </div>
+                }
+            </div>
         </Wrapper>
     )
 }

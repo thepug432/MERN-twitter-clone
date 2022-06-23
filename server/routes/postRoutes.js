@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router()
-const {getPosts, createPost, likePost, unlikePost, likedPosts, postbyid} = require('../controllers/PostController')
+const {getPosts, createPost, likePost, unlikePost, likedPosts, postbyid , postByPoster} = require('../controllers/PostController')
 const {protect} = require('../middleware/authMiddleware')
 
 
@@ -8,6 +8,7 @@ const {protect} = require('../middleware/authMiddleware')
 router.get('/allposts', getPosts)
 router.get('/likedposts', protect, likedPosts)
 router.get('/postbyid', postbyid)
+router.get('/postbyposter', postByPoster)
 
 // post
 router.post('/create', protect, createPost)

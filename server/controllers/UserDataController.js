@@ -3,7 +3,6 @@ const User = require('../model/userModel')
 
 const getUsername = asyncHandler(async (req, res) => {
     const response = await User.findById(req.query.id).select('-password -__v -updatedAt')
-    console.log(response);
     res.status(200).json(response)
 })
 

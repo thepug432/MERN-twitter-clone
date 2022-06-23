@@ -31,6 +31,11 @@ const postbyid = asyncHandler(async(req,res) => {
     res.status(200).json(post)
 })
 
+const postByPoster = asyncHandler(async(req,res) => {
+    let posts = await Posts.find({ poster: req.query.id }).sort('-createdAt').populate('poster', 'username')
+    res.status(200).json(posts)
+})
+
 //post
 const createPost = asyncHandler(async (req, res) => {
     if (!req.body.text || req.body.text === ''){
@@ -64,6 +69,7 @@ module.exports = {
     getPosts, 
     likedPosts,
     postbyid,
+    postByPoster,
     createPost,
     likePost,
     unlikePost,
