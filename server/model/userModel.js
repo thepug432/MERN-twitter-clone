@@ -10,6 +10,10 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    description: {
+        type: String,
+        default: 'No description has been provided'
+    },
     followers: [
         {
             type: mongoose.Schema.Types.ObjectId,
