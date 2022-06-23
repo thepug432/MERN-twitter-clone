@@ -30,7 +30,7 @@ function Post({forceUpdate, posterObj, postObj, hidecomment = false }) {
   
   return (
     <div
-      className='bg-zinc-800 text-white p-3' 
+      className='bg-zinc-800 text-white p-3 m-2 rounded-lg' 
     >
         <div className='flex p-3'>
             <Link to={`/user/${posterObj._id}`}>
