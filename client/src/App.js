@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard';
 import Register from './pages/Register';
 import Liked from './pages/Liked';
 import FullPost from './pages/FullPost';
+import FullUser from './pages/FullUser';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
 
         {/* unprotected routes */}
         <Route path='/post/:id' element={<FullPost/>} />
+        <Route path='/user/:id' element={<FullUser/>} />
 
       </Routes>
     </Router>
