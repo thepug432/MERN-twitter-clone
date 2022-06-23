@@ -15,7 +15,7 @@ function Navbar() {
     const navigate = useNavigate()
     const {user} = useSelector((state) => state.auth)
 
-    const divClass = `sm:flex flex-col p-3 bg-zinc-900/80 pr-9 ${seeNav? 'hidden': 'flex relative'}`
+    const divClass = `sm:flex flex-col p-3 bg-zinc-900/50 pr-9 ${seeNav? 'hidden': 'flex relative'}`
     
     const logoutFunc = () => {
         dispatch(logout())
@@ -34,11 +34,11 @@ function Navbar() {
     return (
         <nav className='sm:min-h-screen h-min sm:bg-zinc-900 sm:w-1/4 w-full p-0 sm:static absolute z-50'> 
             {seeNav ? 
-                <button className='sm:hidden block bg-zinc-900/80 text-white p-2 px-4 rounded-r-xl' onClick={flipnav}>
+                <button className='sm:hidden block bg-zinc-900/50 text-white p-2 px-4 rounded-r-xl' onClick={flipnav}>
                     <GoTriangleRight size={25}/>
                 </button>
             : 
-                <div className='flex bg-zinc-900/80 text-white p-2 px-4 sm:hidden' onClick={flipnav}>
+                <div className='flex bg-zinc-900/50 text-white p-2 px-4 sm:hidden' onClick={flipnav}>
                     <button>
                     <IoCloseOutline size={25}/>
                     </button>
