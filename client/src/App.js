@@ -7,6 +7,7 @@ import Register from './pages/Register';
 import Liked from './pages/Liked';
 import FullPost from './pages/FullPost';
 import FullUser from './pages/FullUser';
+import Explore from './pages/Explore';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         {/* unprotected routes */}
         <Route path='/post/:id' element={<FullPost/>} />
         <Route path='/user/:id' element={<FullUser/>} />
+        <Route path='/explore' element={<Explore/>} />
 
       </Routes>
     </Router>
