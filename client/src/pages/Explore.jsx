@@ -34,7 +34,7 @@ function Explore() {
                         <></>
                     :
                         postData === null ?
-                            <LoadingPosts overRides={'Loading top posts...'}/>
+                            <LoadingPosts override={'Loading top posts...'}/>
                             
                         :
                         <>
@@ -50,7 +50,7 @@ function Explore() {
                         <></>
                     :
                         userData === null ?
-                            <LoadingPosts overRides={'Loading top users...'}/>
+                            <LoadingPosts override={'Loading top users...'}/>
                             
                         :
                         <>

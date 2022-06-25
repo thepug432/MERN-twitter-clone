@@ -63,12 +63,12 @@ function Post({forceUpdate, posterObj, postObj, hidecomment = false }) {
           {/* see comments */}
           {!hidecomment &&
             <motion.i 
-            className='mx-3 cursor-pointer' 
-            onClick={goToPost}
-            whileHover={{ scale: 1.1 }}
-          >
-            <BiCommentDetail size={20}/>
-          </motion.i>
+              className='mx-3 cursor-pointer' 
+              onClick={goToPost}
+              whileHover={{ scale: 1.1 }}
+            >
+              <BiCommentDetail size={20}/>
+            </motion.i>
           }
         </div>
     </div>
