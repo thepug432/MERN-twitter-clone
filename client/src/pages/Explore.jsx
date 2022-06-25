@@ -31,7 +31,7 @@ function Explore() {
         }   
         getPostData()
     }, [update])
-    
+
     return (
         <Wrapper>
             {/* search */}
@@ -68,7 +68,7 @@ function Explore() {
                 <div className='sm:w-full flex flex-col'>
                     {userData ?
                         userData.map(data => 
-                            <Link to={`/user/${data._id}`} key={data._id}>
+                            <Link to={`/user/${data._id}`} key={data._id} className='mt-2'>
                                 <motion.div
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: .95 }}
