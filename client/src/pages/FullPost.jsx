@@ -22,7 +22,6 @@ function FullPost() {
     getPost()
 
     const getComment = async () => {
-      console.log('ran');
       const response = await (await axios.get('/api/comments/commentsbyid', { params: { id: id } })).data
       setComments(response)
     }

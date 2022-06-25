@@ -33,6 +33,17 @@ const postbyid = asyncHandler(async(req,res) => {
 
 const postByPoster = asyncHandler(async(req,res) => {
     let posts = await Posts.find({ poster: req.query.id }).sort('-createdAt').populate('poster', 'username')
+    if (posts === null) {
+        posts = ''
+    }
+    res.status(200).json(posts)
+})
+
+const top = asyncHandler(async (req,res) => {
+    let posts = await Posts.find().sort('-likes').limit(10).populate('poster', 'username')
+    if (!posts) {
+        posts = ''
+    }
     res.status(200).json(posts)
 })
 
@@ -70,6 +81,7 @@ module.exports = {
     likedPosts,
     postbyid,
     postByPoster,
+    top,
     createPost,
     likePost,
     unlikePost,

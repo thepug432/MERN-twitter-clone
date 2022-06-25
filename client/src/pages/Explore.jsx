@@ -4,15 +4,18 @@ import Wrapper from '../components/Wrapper'
 import LoadingPosts from '../components/LoadingPosts'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import Post from '../components/Post'
 
 function Explore() {
     const [formData, setFormData] = useState('')
     const [userData, setUserData] = useState(null)
     const [postData, setPostData] = useState(null)
+    const [update, setUpdate] = useState(0)
 
     const changeFormData = (e) => {
         setFormData(e.target.value)
     }
+    const forceUpdate = () => setUpdate(update+1)
 
     useEffect(() => {
         //userData
@@ -21,7 +24,13 @@ function Explore() {
             setUserData(response)
         }
         getUserData()
-    }, [])
+
+        const getPostData = async () => {
+            const response = await( await axios.get('/api/posts/top', { params: { num: 10 } })).data
+            setPostData(response)
+        }   
+        getPostData()
+    }, [update])
     
     return (
         <Wrapper>
@@ -42,7 +51,7 @@ function Explore() {
                 {/* posts */}
                 <div className='w-full flex flex-col'>
                     {postData ?
-                        <></>
+                        postData.map(post => <Post forceUpdate={forceUpdate} posterObj={post.poster} postObj={post} key={post._id}/>)
                     :
                         postData === null ?
                             <LoadingPosts override={'Loading top posts...'}/>
