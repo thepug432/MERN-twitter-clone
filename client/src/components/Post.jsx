@@ -28,6 +28,7 @@ function Post({forceUpdate, posterObj, postObj, hidecomment = false }) {
     forceUpdate()
   }
   
+  const likeStyles = `cursor-pointer flex ${postObj.likes.indexOf(authState.user.id) >= 0 ? 'text-red-500': 'text-white'}`
   return (
     <div
       className='bg-zinc-800 text-white p-3 m-2 rounded-lg' 
@@ -52,17 +53,11 @@ function Post({forceUpdate, posterObj, postObj, hidecomment = false }) {
         <div className='flex mx-4'>
           {/* like */}
             <motion.i 
-              className='cursor-pointer flex' 
+              className={likeStyles} 
               onClick={like}
               whileHover={{ scale: 1.1 }}
             >
-              {postObj.likes.indexOf(authState.user.id) >= 0 ? 
-                <div className='text-red-500'>
                   <BsSuitHeartFill size={20}/> 
-                </div>
-              :   
-                <BsHeart size={20}/> 
-              }
               <p>{postObj.likes.length}</p>
             </motion.i>
           {/* see comments */}
