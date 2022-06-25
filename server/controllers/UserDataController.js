@@ -6,6 +6,12 @@ const getUsername = asyncHandler(async (req, res) => {
     res.status(200).json(response)
 })
 
+const top = asyncHandler(async (req, res) => {
+    const response = await User.find().sort('followers').limit(req.query.num).select('-password -__v -updatedAt')
+    res.status(200).json(response)
+})
+
 module.exports = {
-    getUsername
+    getUsername,
+    top
 }

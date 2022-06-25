@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import Wrapper from '../components/Wrapper'
 import LoadingPosts from '../components/LoadingPosts'
+import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 function Explore() {
     const [formData, setFormData] = useState('')
@@ -12,6 +14,15 @@ function Explore() {
         setFormData(e.target.value)
     }
 
+    useEffect(() => {
+        //userData
+        const getUserData = async () => {
+            const response = await( await axios.get('/api/userData/top', { params: { num: 10 } })).data
+            setUserData(response)
+        }
+        getUserData()
+    }, [])
+    console.log(userData);
     return (
         <Wrapper>
             {/* search */}
@@ -47,7 +58,26 @@ function Explore() {
                 {/* users */}
                 <div className='sm:w-full flex flex-col'>
                     {userData ?
-                        <></>
+                        userData.map(data => 
+                            <Link to={`/user/${data._id}`} key={data._id}>
+                                <motion.div
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: .95 }}
+                                    className='flex flex-col bg-zinc-500 p-3 rounded-lg'
+                                >
+                                    <div className='flex'>
+                                        <h1><strong>{data.username}</strong></h1>
+                                        <p className='ml-auto'>
+                                            Joined: <i>{new Date(data.createdAt).toGMTString()}</i>
+                                        </p>
+                                    </div>
+                                    <div className='flex flex-col'>
+                                        <p>{data.description}</p>
+                                        <p><strong>{data.followers.length}</strong> followers</p>
+                                    </div>
+                                </motion.div>
+                            </Link>
+                        )
                     :
                         userData === null ?
                             <LoadingPosts override={'Loading top users...'}/>
