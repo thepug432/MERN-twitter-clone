@@ -37,13 +37,12 @@ function FullUser() {
 
         const fetchUserPosts = async () => {
             const response = await(await axios.get('/api/posts/postbyposter', { params: {id: id} })).data
-            console.log(response);
             setPosts(response)
         }
         fetchUserPosts()
 
     }, [update, id])
-
+    console.log(userData.description);
     return (
         <Wrapper>
             {/* user information */}
@@ -65,7 +64,13 @@ function FullUser() {
                         Follow
                     </motion.button>
                 </div>
-                <p>Description</p>
+                <p>
+                    {userData.description ?
+                        userData.description
+                    :
+                         <>loading....</>
+                    }
+                </p>
                 <div>
                     <small className='italic text-gray-400 flex'>
                         <div className='my-auto'>
