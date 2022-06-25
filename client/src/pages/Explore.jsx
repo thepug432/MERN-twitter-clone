@@ -22,7 +22,7 @@ function Explore() {
         }
         getUserData()
     }, [])
-    console.log(userData);
+    
     return (
         <Wrapper>
             {/* search */}

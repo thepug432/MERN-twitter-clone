@@ -42,7 +42,7 @@ function FullUser() {
         fetchUserPosts()
 
     }, [update, id])
-    console.log(userData.description);
+    
     return (
         <Wrapper>
             {/* user information */}
