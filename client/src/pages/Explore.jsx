@@ -36,7 +36,7 @@ function Explore() {
         <Wrapper>
             {/* search */}
             <div className='flex m-3 text-white'>
-                <input value={formData} onChange={changeFormData} type='text' className='bg-zinc-700 w-full rounded-lg px-2'/>
+                <input placeholder='Search' value={formData} onChange={changeFormData} type='text' className='bg-zinc-700 w-full rounded-lg px-2'/>
                 <motion.button 
                     whileHover={{ scale: 1.1, backgroundColor: "rgb(239, 68, 68)" }} 
                     whileTap={{ scale: .9 }} 
