@@ -48,11 +48,10 @@ const top = asyncHandler(async (req,res) => {
 })
 
 const getbyquery = asyncHandler(async(req,res) => {
-    
     const StringReg = `.*${req.query.query}.*`
     const re = new RegExp(StringReg, 'i')
     let posts = await Posts.find({ text: { $regex : re} }).populate('poster', 'username').sort('-createdAt')
-    if (!posts){
+    if (posts.length === 0) {
         posts = ''
     }
     res.status(200).json(posts)
