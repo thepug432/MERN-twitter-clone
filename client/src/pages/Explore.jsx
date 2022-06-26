@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import Wrapper from '../components/Wrapper'
 import LoadingPosts from '../components/LoadingPosts'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Post from '../components/Post'
 
 function Explore() {
@@ -11,6 +11,8 @@ function Explore() {
     const [userData, setUserData] = useState(null)
     const [postData, setPostData] = useState(null)
     const [update, setUpdate] = useState(0)
+
+    const navigate = useNavigate()
 
     const changeFormData = (e) => {
         setFormData(e.target.value)
@@ -32,6 +34,10 @@ function Explore() {
         getPostData()
     }, [update])
 
+    const search = () => {
+        navigate(`/search/${formData}`)
+    }
+
     return (
         <Wrapper>
             {/* search */}
@@ -41,7 +47,9 @@ function Explore() {
                     whileHover={{ scale: 1.1, backgroundColor: "rgb(239, 68, 68)" }} 
                     whileTap={{ scale: .9 }} 
                     transition={{ duration: .3 }}
-                    className='bg-red-700 px-4 py-3 ml-3 rounded-lg'>
+                    className='bg-red-700 px-4 py-3 ml-3 rounded-lg'
+                    onClick={search}    
+                >
                 Search
                 </motion.button>
             </div>
