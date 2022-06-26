@@ -53,8 +53,6 @@ function Search() {
                     :
                         <>returned no results.</>
                 }
-                
-                
             </h1>
             
             {/* posts results */}

@@ -3,8 +3,9 @@ import { motion } from 'framer-motion'
 import Wrapper from '../components/Wrapper'
 import LoadingPosts from '../components/LoadingPosts'
 import axios from 'axios'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Post from '../components/Post'
+import User from '../components/User'
 
 function Explore() {
     const [formData, setFormData] = useState('')
@@ -75,34 +76,15 @@ function Explore() {
                 {/* users */}
                 <div className='sm:w-full flex flex-col'>
                     {userData ?
-                        userData.map(data => 
-                            <Link to={`/user/${data._id}`} key={data._id} className='mt-2'>
-                                <motion.div
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: .95 }}
-                                    className='flex flex-col bg-zinc-500 p-3 rounded-lg'
-                                >
-                                    <div className='flex'>
-                                        <h1><strong>{data.username}</strong></h1>
-                                        <p className='ml-auto'>
-                                            Joined: <i>{new Date(data.createdAt).toGMTString()}</i>
-                                        </p>
-                                    </div>
-                                    <div className='flex flex-col'>
-                                        <p>{data.description}</p>
-                                        <p><strong>{data.followers.length}</strong> followers</p>
-                                    </div>
-                                </motion.div>
-                            </Link>
-                        )
+                        userData.map(data => <User data={data} />)
                     :
                         userData === null ?
                             <LoadingPosts override={'Loading top users...'}/>
                             
                         :
                         <>
-                            <h1><strong>No top posts.</strong></h1>
-                            <p>Post something and it will appear.</p>
+                            <h1><strong>No top users.</strong></h1>
+                            <p>Create and account and it will appear here.</p>
                         </>
                     }
                 </div>
