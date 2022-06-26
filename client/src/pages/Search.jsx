@@ -1,19 +1,27 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import LoadingPosts from '../components/LoadingPosts'
 import Wrapper from '../components/Wrapper'
 import { motion } from 'framer-motion'
+import axios from 'axios'
 
 function Search() {
-    const [searchResults, setSearchResults] = useState(null)
-    const [searchValue, setSearchValue] = useState()
+    const [searchResultsPosts, setSearchResultsPosts] = useState(null)
+    const [searchValue, setSearchValue] = useState('')
     const { query } = useParams()
     const navigate = useNavigate()
 
     const change = (e) =>  setSearchValue(e.target.value)
     const search = () => navigate(`/search/${searchValue}`)
 
-
+    useEffect(() => {
+        const SearchPosts = async () => {
+            const response = await (await axios.get('/api/posts/getbyquery', { params: { query: query} } )).data
+            setSearchResultsPosts(response)
+        }
+        SearchPosts()
+    }, [query])
+    console.log(searchResultsPosts);
     return (
         <Wrapper>
             <div className='flex m-3 text-white'>
@@ -33,10 +41,10 @@ function Search() {
             <h1 className='text-2xl m-3 text-center'>
                 Your search for <strong className='italic'>{query} </strong> 
                 
-                { searchResults ?
+                {searchResultsPosts ?
                     <>returned the following results: </>
                 :
-                    searchResults === 'null' ?
+                    searchResultsPosts === 'null' ?
                         <>are loading...</>
                     :
                         <>returned no results.</>
@@ -44,12 +52,13 @@ function Search() {
                 
                 
             </h1>
-                
+            
+            {/* posts results */}
             <div>
-                {searchResults ?
+                {searchResultsPosts ?
                     <>posts found</>
                 :
-                    searchResults === 'null' ?
+                    searchResultsPosts === 'null' ?
                         <LoadingPosts override='Loading results...' />
                     :
                     <h1 className='text-center'>Please change your query, and try again.</h1>   

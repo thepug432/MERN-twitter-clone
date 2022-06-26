@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router()
-const {getPosts, createPost, likePost, unlikePost, likedPosts, postbyid , postByPoster, top} = require('../controllers/PostController')
+const {getPosts, createPost, likePost, unlikePost, likedPosts, postbyid , postByPoster, top, getbyquery} = require('../controllers/PostController')
 const {protect} = require('../middleware/authMiddleware')
 
 
@@ -10,6 +10,7 @@ router.get('/likedposts', protect, likedPosts)
 router.get('/postbyid', postbyid)
 router.get('/postbyposter', postByPoster)
 router.get('/top', top)
+router.get('/getbyquery', getbyquery)
 
 // post
 router.post('/create', protect, createPost)

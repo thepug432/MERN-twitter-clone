@@ -47,6 +47,17 @@ const top = asyncHandler(async (req,res) => {
     res.status(200).json(posts)
 })
 
+const getbyquery = asyncHandler(async(req,res) => {
+    
+    const StringReg = `.*${req.query.query}.*`
+    const re = new RegExp(StringReg, 'i')
+    let posts = await Posts.find({ text: { $regex : re} }).populate('poster', 'username')
+    if (!posts){
+        posts = ''
+    }
+    res.status(200).json(posts)
+})
+
 //post
 const createPost = asyncHandler(async (req, res) => {
     if (!req.body.text || req.body.text === ''){
@@ -82,6 +93,7 @@ module.exports = {
     postbyid,
     postByPoster,
     top,
+    getbyquery,
     createPost,
     likePost,
     unlikePost,
