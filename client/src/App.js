@@ -8,6 +8,7 @@ import Liked from './pages/Liked';
 import FullPost from './pages/FullPost';
 import FullUser from './pages/FullUser';
 import Explore from './pages/Explore';
+import Search from './pages/Search';
 
 function App() {
   return (
@@ -25,10 +26,11 @@ function App() {
         <Route path='/post/:id' element={<FullPost/>} />
         <Route path='/user/:id' element={<FullUser/>} />
         <Route path='/explore' element={<Explore/>} />
+        <Route path='/search/:query' element={<Search/>} />
 
       </Routes>
     </Router>
   );
 }
-//store.getState().auth.user
+
 export default App;
