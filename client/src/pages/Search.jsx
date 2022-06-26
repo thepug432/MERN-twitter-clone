@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import LoadingPosts from '../components/LoadingPosts'
-import Wrapper from '../components/Wrapper'
 import { motion } from 'framer-motion'
 import axios from 'axios'
+import LoadingPosts from '../components/LoadingPosts'
+import Wrapper from '../components/Wrapper'
+import Post from '../components/Post'
+
 
 function Search() {
     const [searchResultsPosts, setSearchResultsPosts] = useState(null)
     const [searchValue, setSearchValue] = useState('')
+    const [update, setUpdate] = useState(0)
     const { query } = useParams()
     const navigate = useNavigate()
 
     const change = (e) =>  setSearchValue(e.target.value)
     const search = () => navigate(`/search/${searchValue}`)
+    const forceUpdate = () => setUpdate(update+1)
 
     useEffect(() => {
         const SearchPosts = async () => {
@@ -20,8 +24,8 @@ function Search() {
             setSearchResultsPosts(response)
         }
         SearchPosts()
-    }, [query])
-    console.log(searchResultsPosts);
+    }, [query, update])
+    
     return (
         <Wrapper>
             <div className='flex m-3 text-white'>
@@ -56,7 +60,7 @@ function Search() {
             {/* posts results */}
             <div>
                 {searchResultsPosts ?
-                    <>posts found</>
+                    searchResultsPosts.map(post => <Post forceUpdate={forceUpdate} posterObj={post.poster} postObj={post} key={post._id}/>)
                 :
                     searchResultsPosts === 'null' ?
                         <LoadingPosts override='Loading results...' />

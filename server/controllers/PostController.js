@@ -51,7 +51,7 @@ const getbyquery = asyncHandler(async(req,res) => {
     
     const StringReg = `.*${req.query.query}.*`
     const re = new RegExp(StringReg, 'i')
-    let posts = await Posts.find({ text: { $regex : re} }).populate('poster', 'username')
+    let posts = await Posts.find({ text: { $regex : re} }).populate('poster', 'username').sort('-createdAt')
     if (!posts){
         posts = ''
     }
