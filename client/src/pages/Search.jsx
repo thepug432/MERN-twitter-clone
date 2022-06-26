@@ -5,6 +5,7 @@ import axios from 'axios'
 import LoadingPosts from '../components/LoadingPosts'
 import Wrapper from '../components/Wrapper'
 import Post from '../components/Post'
+import User from '../components/User'
 
 
 function Search() {
@@ -25,8 +26,14 @@ function Search() {
             setSearchResultsPosts(response)
         }
         SearchPosts()
+
+        const SearchUsers = async () => {
+            const response = await (await axios.get('/api/userData/getbyquery', { params: { query: query} } )).data
+            setSearchResultsUsers(response)
+        }
+        SearchUsers()
     }, [query, update])
-    
+    console.log(searchResultsPosts, searchResultsUsers);
     return (
         <Wrapper>
             <div className='flex m-3 text-white'>
@@ -49,7 +56,7 @@ function Search() {
                 {searchResultsPosts ?
                     <>returned the following results: </>
                 :
-                    searchResultsPosts === 'null' ?
+                    searchResultsPosts === null ?
                         <>are loading...</>
                     :
                         <>returned no results.</>
@@ -58,22 +65,22 @@ function Search() {
             
             {/* posts results */}
             <div className='flex sm:flex-row flex-col'>
-                <div className='mx-5 w-full'>
-                    <h1 className='text-xl text-center'><strong>Posts</strong></h1>
+                <div className='mx-3 w-full'>
+                    <h1 className='text-xl text-center mb-3'><strong>Posts</strong></h1>
                     {searchResultsPosts ?
                         searchResultsPosts.map(post => <Post forceUpdate={forceUpdate} posterObj={post.poster} postObj={post} key={post._id}/>)
                     :
-                        searchResultsPosts === 'null' ?
+                        searchResultsPosts === null ?
                             <LoadingPosts override='Loading results...' />
                         :
                         <h1 className='text-center'>Please change your query, and try again.</h1>   
                     }
                 </div>
 
-                <div className='mx-5 w-full'>
-                    <h1 className='text-xl text-center'><strong>Users</strong></h1>
+                <div className='mr-3 w-full'>
+                    <h1 className='text-xl text-center mb-3'><strong>Users</strong></h1>
                     {searchResultsUsers ?
-                        searchResultsUsers.map(post => <Post forceUpdate={forceUpdate} posterObj={post.poster} postObj={post} key={post._id}/>)
+                        searchResultsUsers.map(data => <User data={data}/>)
                     :
                         searchResultsUsers === null ?
                             <LoadingPosts override='Loading results...' />

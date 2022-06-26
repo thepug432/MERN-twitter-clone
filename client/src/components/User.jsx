@@ -8,7 +8,7 @@ function User({ data }) {
             <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: .95 }}
-                className='flex flex-col bg-zinc-500 p-3 rounded-lg'
+                className='flex flex-col bg-zinc-800 p-3 rounded-lg'
             >
                 <div className='flex'>
                     <h1><strong>{data.username}</strong></h1>
