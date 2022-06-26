@@ -9,6 +9,7 @@ import Post from '../components/Post'
 
 function Search() {
     const [searchResultsPosts, setSearchResultsPosts] = useState(null)
+    const [searchResultsUsers, setSearchResultsUsers] = useState(null)
     const [searchValue, setSearchValue] = useState('')
     const [update, setUpdate] = useState(0)
     const { query } = useParams()
@@ -56,15 +57,30 @@ function Search() {
             </h1>
             
             {/* posts results */}
-            <div>
-                {searchResultsPosts ?
-                    searchResultsPosts.map(post => <Post forceUpdate={forceUpdate} posterObj={post.poster} postObj={post} key={post._id}/>)
-                :
-                    searchResultsPosts === 'null' ?
-                        <LoadingPosts override='Loading results...' />
+            <div className='flex sm:flex-row flex-col'>
+                <div className='mx-5 w-full'>
+                    <h1 className='text-xl text-center'><strong>Posts</strong></h1>
+                    {searchResultsPosts ?
+                        searchResultsPosts.map(post => <Post forceUpdate={forceUpdate} posterObj={post.poster} postObj={post} key={post._id}/>)
                     :
-                    <h1 className='text-center'>Please change your query, and try again.</h1>   
-                }
+                        searchResultsPosts === 'null' ?
+                            <LoadingPosts override='Loading results...' />
+                        :
+                        <h1 className='text-center'>Please change your query, and try again.</h1>   
+                    }
+                </div>
+
+                <div className='mx-5 w-full'>
+                    <h1 className='text-xl text-center'><strong>Users</strong></h1>
+                    {searchResultsUsers ?
+                        searchResultsUsers.map(post => <Post forceUpdate={forceUpdate} posterObj={post.poster} postObj={post} key={post._id}/>)
+                    :
+                        searchResultsUsers === null ?
+                            <LoadingPosts override='Loading results...' />
+                        :
+                        <h1 className='text-center'>Please change your query, and try again.</h1>   
+                    }
+                </div>
             </div>
         </Wrapper>
     )
