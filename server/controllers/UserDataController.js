@@ -21,8 +21,21 @@ const getbyquery = asyncHandler(async (req, res) => {
     res.status(200).json(response)
 })
 
+const update = asyncHandler(async (req,res) => {
+    const check = await User.findOne({username: req.body.username})
+    if (check !== null && req.body.username !== req.user.username) {
+        res.status(401).json({msg: 'Username is taken'})
+    }
+    const response = await User.findByIdAndUpdate(req.user.id, {
+        username: req.body.username,
+        description: req.body.description,
+    })
+    res.status(200).json({msg: 'Success'})
+})
+
 module.exports = {
     getUserdata,
     top,
-    getbyquery
+    getbyquery,
+    update
 }

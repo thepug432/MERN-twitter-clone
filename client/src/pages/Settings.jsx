@@ -34,6 +34,19 @@ function Settings() {
         [e.target.name]: e.target.value
     }))
 
+    const sendNew = async () => {
+        console.log('ran');
+        const data = {
+            username: userData.username,
+            description: userData.description
+        }
+        const config = {
+            headers: { Authorization: `Bearer ${user.token}` }
+        };
+        const response = await axios.post('/api/userData/update', data, config)
+        console.log(response);
+    }
+
     return (
         <Wrapper>
             <div className='m-3 flex flex-col'>
@@ -60,6 +73,7 @@ function Settings() {
                     whileHover={{ scale: 1.1, backgroundColor: "rgb(239, 68, 68)" }} 
                     whileTap={{ scale: .9 }} 
                     transition={{ duration: .3 }}
+                    onClick={sendNew}
                     className='bg-red-700 px-6 py-3 my-3 ml-auto rounded-xl'
                 >
                     Save settings
