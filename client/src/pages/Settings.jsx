@@ -19,8 +19,20 @@ function Settings() {
             navigate('/login')
         }
         
-        const fetchUserData = () => axios.get('', {params: { id: user.id }})
+        const fetchUserData = async () => {
+            const response = await (await axios.get('/api/userData/usernameFromId', { params: { id: user.id } } )).data
+            setUserData({
+                username: response.username,
+                description: response.description
+            })
+        }
+        fetchUserData()
     }, [navigate, user])
+
+    const change = e => setUserData(state => ({
+        ...state,
+        [e.target.name]: e.target.value
+    }))
 
     return (
         <Wrapper>
@@ -29,16 +41,19 @@ function Settings() {
                 <label htmlFor='username'><small className='italic text-gray-300'>Username</small></label>
                 <input 
                     name='username' 
-                    type='text' 
-                    placeholder={userData.username ? 'Username' : 'Loading...'} 
+                    type='text'
+                    disabled={userData.username ? false : true}
+                    value={userData.username ? userData.username : 'Loading...'}
+                    onChange={change}
                     className='bg-zinc-700 p-3 my-2 rounded-md'
                 />
 
                 <label htmlFor='username'><small className='italic text-gray-300'>Description</small></label>
                 <textarea 
                     name='description' 
-                    type='description' 
-                    placeholder={userData.description ? 'Description' : 'Loading...'} 
+                    disabled={userData.description ? false : true}
+                    value={userData.description ? userData.description : 'Loading...'} 
+                    onChange={change}
                     className='bg-zinc-700 p-3 my-2 rounded-md'
                 />
                 <motion.button 
