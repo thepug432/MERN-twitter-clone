@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Wrapper from '../components/Wrapper'
+import axios from 'axios'
 
 function Settings() {
     const navigate = useNavigate()
@@ -17,6 +18,8 @@ function Settings() {
         if(!user){
             navigate('/login')
         }
+        
+        const fetchUserData = () => axios.get('', {params: { id: user.id }})
     }, [navigate, user])
 
     return (

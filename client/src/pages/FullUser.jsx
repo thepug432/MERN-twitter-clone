@@ -25,7 +25,7 @@ function FullUser() {
     useEffect(() => {
         
         const fetchUserData = async () => {
-            const response = await(await axios.get('/api/userData/usernameFromId', { params: {id: id} })).data
+            const response = await(await axios.get('/api/userData/userdataFromId', { params: {id: id} })).data
             SetUserData({
                 username: response.username,
                 created: response.createdAt,
