@@ -52,7 +52,7 @@ function Navbar() {
                     <>
                         <Navbutton link={'/liked'} text={'Likes'} />
                         <Navbutton link={'/messages'} text={'Messages'} />
-
+                        <Navbutton link={'/settings'} text={'Settings'}/>
                         <motion.button 
                         onClick={logoutFunc}
                         whileHover={{ scale: 1.1, backgroundColor: "rgb(239, 68, 68)" }} 

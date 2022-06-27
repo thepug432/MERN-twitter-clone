@@ -9,6 +9,7 @@ import FullPost from './pages/FullPost';
 import FullUser from './pages/FullUser';
 import Explore from './pages/Explore';
 import Search from './pages/Search';
+import Settings from './pages/Settings';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         {/* protected routes */}
         <Route path='/' element={<Dashboard/>} />
         <Route path='/liked' element={<Liked/>} />
+        <Route path='/settings' element={<Settings/>} />
 
         {/* unprotected routes */}
         <Route path='/post/:id' element={<FullPost/>} />
