@@ -80,7 +80,7 @@ function Search() {
                 <div className='mr-3 w-full'>
                     <h1 className='text-xl text-center mb-3'><strong>Users</strong></h1>
                     {searchResultsUsers ?
-                        searchResultsUsers.map(data => <User data={data}/>)
+                        searchResultsUsers.map(data => <User data={data} key={data._id}/>)
                     :
                         searchResultsUsers === null ?
                             <LoadingPosts override='Loading results...' />

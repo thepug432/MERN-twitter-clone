@@ -38,7 +38,7 @@ function Explore() {
     const search = () => {
         navigate(`/search/${formData}`)
     }
-
+    
     return (
         <Wrapper>
             {/* search */}
@@ -76,7 +76,7 @@ function Explore() {
                 {/* users */}
                 <div className='sm:w-full flex flex-col'>
                     {userData ?
-                        userData.map(data => <User data={data} />)
+                        userData.map(data => <User data={data} key={data._id}/>)
                     :
                         userData === null ?
                             <LoadingPosts override={'Loading top users...'}/>
