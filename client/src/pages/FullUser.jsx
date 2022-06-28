@@ -31,7 +31,7 @@ function FullUser() {
                 username: response.username,
                 created: response.createdAt,
                 description: response.description,
-                followers: response.followers.length,
+                followers: response.followers,
             })
         }
         fetchUserData()
@@ -52,7 +52,7 @@ function FullUser() {
         await axios.put('/api/userData/follow', data, config)
         forceUpdate()
     }
-    
+    console.log(userData);
     return (
         <Wrapper>
             {/* user information */}
@@ -69,10 +69,17 @@ function FullUser() {
                         whileHover={{ scale: 1.1, backgroundColor: "rgb(239, 68, 68)" }} 
                         whileTap={{ scale: .9 }} 
                         transition={{ duration: .3 }}
-                        className='ml-auto my-1 mr-1 bg-red-700 p-5 py-1 rounded-lg'
+                        className={`ml-auto my-1 mr-1 bg-red-700 p-5 py-1 rounded-lg`}
                         onClick={follow}
                     >
-                        Follow
+                        {userData.followers !== null ?
+                            userData.followers.indexOf(user.id) >= 0 ?
+                                <>Unfollow</>
+                            :
+                                <>Follow</>
+                            :
+                            <>Loading..</>
+                        }
                     </motion.button>
                 </div>
                 <p>
@@ -92,7 +99,7 @@ function FullUser() {
                     <div>
                         <small className='text-gray-400'>
                             <strong className='text-white'>
-                                {userData.followers !== null ? userData.followers : <>loading...</>}
+                                {userData.followers !== null ? userData.followers.length : <>loading...</>}
                             </strong> followers
                         </small>
                     </div>
