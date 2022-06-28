@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import Wrapper from '../components/Wrapper'
 import axios from 'axios'
 
 function Settings() {
     const navigate = useNavigate()
     const user = useSelector((state) => {return state.auth.user})
+    const [msg, setMsg] = useState(null)
     const [userData, setUserData] = useState({
         username: null,
         description: null 
     })
-    
+    const [update, setUpdate] = useState(0)
 
     useEffect(() => {
         if(!user){
@@ -20,19 +21,21 @@ function Settings() {
         }
         
         const fetchUserData = async () => {
-            const response = await (await axios.get('/api/userData/usernameFromId', { params: { id: user.id } } )).data
+            const response = await (await axios.get('/api/userData/userbyId', { params: { id: user.id } } )).data
             setUserData({
                 username: response.username,
                 description: response.description
             })
         }
         fetchUserData()
-    }, [navigate, user])
+    }, [navigate, user, update])
 
     const change = e => setUserData(state => ({
         ...state,
         [e.target.name]: e.target.value
     }))
+
+    const forceupdate = () => setUpdate(update+1)
 
     const sendNew = async () => {
         console.log('ran');
@@ -43,15 +46,36 @@ function Settings() {
         const config = {
             headers: { Authorization: `Bearer ${user.token}` }
         };
-        const response = await axios.post('/api/userData/update', data, config)
-        console.log(response);
+        const response = await(await axios.post('/api/userData/update', data, config)).data
+        forceupdate()
+        if (response.msg === 'Success') {
+            alert('Your data has been changed')
+        } else{
+            setMsg(response.msg)
+            setTimeout(() => setMsg(null), 5000)
+        }
     }
 
     return (
         <Wrapper>
             <div className='m-3 flex flex-col'>
 
-                <label htmlFor='username'><small className='italic text-gray-300'>Username</small></label>
+                <label htmlFor='username'>
+                    <small className='italic text-gray-300'>Username</small>
+                    <AnimatePresence>
+                        {msg && (
+                            <motion.em 
+                                key={'alert'}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className='text-red-500 ml-2'
+                            >
+                                {msg}
+                            </motion.em>
+                        )}
+                    </AnimatePresence>
+                </label>
                 <input 
                     name='username' 
                     type='text'
