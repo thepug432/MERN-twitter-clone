@@ -7,7 +7,7 @@ const getUserdata = asyncHandler(async (req, res) => {
 })
 
 const top = asyncHandler(async (req, res) => {
-    const response = await User.find().sort('followers').limit(req.query.num).select('-password -__v -updatedAt')
+    const response = await User.find().sort('-followers').limit(req.query.num).select('-password -__v -updatedAt')
     res.status(200).json(response)
 })
 
