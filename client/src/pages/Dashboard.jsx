@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import {store} from '../app/store'
-import {VscLoading} from 'react-icons/vsc'
+import { useSelector } from 'react-redux'
 import Post from '../components/Post';
 import Wrapper from '../components/Wrapper';
 import Newpost from '../components/Newpost'
@@ -11,26 +11,31 @@ import LoadingPosts from '../components/LoadingPosts'
 function Dashboard() {
   const [posts, setPosts] = useState(false)
   const [update, setupdate] = useState(0)
+  const user = useSelector((state) => {return state.auth.user})
   const navigate = useNavigate()
 
   useEffect(() => {
     // check login
-    if(!store.getState().auth.user){
+    if(!user){
       navigate('/login')
     }
 
     // fetch posts
+    const fetchPosts = async () => {
+      const config = {
+        headers: { Authorization: `Bearer ${user.token}` }
+      };
+      const response = await (await axios.get('/api/posts/userreleventposts', config)).data
+      setPosts(response)
+    }
     fetchPosts()
-  }, [navigate, update])
+  }, [navigate, update, user])
 
   const forceUpdate = () => {
     setupdate(update+1)
   }
 
-  const fetchPosts = async () => {
-    const response = await (await axios.get('/api/posts/allposts')).data
-    setPosts(response)
-  }
+  
   
   return (
     <Wrapper>

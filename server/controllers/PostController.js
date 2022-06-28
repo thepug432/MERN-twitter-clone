@@ -1,10 +1,26 @@
 const asyncHandler = require('express-async-handler');
 const Posts = require('../model/postsModel')
-
+const User = require('../model/userModel')
 
 //get
 const getPosts = asyncHandler(async (req, res) => {
     let posts = await Posts.find().sort('-createdAt').populate('poster', 'username');
+    if (posts.length === 0) {
+        posts = ''
+    }
+    res.status(200).json(posts)
+})
+
+const userReleventPosts = asyncHandler(async(req,res)=> {
+    const userfollowing = await User.find({ followers: req.user.id })
+    let posts = await Posts.find({
+        $or: [
+            {poster: req.user.id},
+            {likes: req.user.id},
+            {poster: {$in: userfollowing}},
+            {likes: {$in: userfollowing}},
+        ]
+    }).sort('-createdAt').populate('poster', 'username');
     if (posts.length === 0) {
         posts = ''
     }
@@ -88,6 +104,7 @@ const unlikePost = asyncHandler(async (req, res) => {
 
 module.exports = {
     getPosts, 
+    userReleventPosts,
     likedPosts,
     postbyid,
     postByPoster,
