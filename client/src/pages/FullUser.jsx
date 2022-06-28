@@ -6,9 +6,11 @@ import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import LoadingPosts from '../components/LoadingPosts'
 import Post from '../components/Post'
+import { useSelector } from 'react-redux'
 
 function FullUser() {
     const {id} = useParams()
+    const user = useSelector((state) => {return state.auth.user})
     const [userData, SetUserData] = useState({
         username: null,
         created: null,
@@ -18,9 +20,8 @@ function FullUser() {
     const [posts, setPosts] = useState(null)
     const [update, setUpdate] = useState(0)
 
-    const forceUpdate = () => {
-        setUpdate(update+1)
-    }
+    const forceUpdate = () => setUpdate(update+1)
+
 
     useEffect(() => {
          
@@ -41,7 +42,16 @@ function FullUser() {
         }
         fetchUserPosts()
 
-    }, [update, id])
+    }, [update, id, update])
+
+    const follow = async () => {
+        const data = { id: id }
+        const config = {
+            headers: { Authorization: `Bearer ${user.token}` }
+        };
+        await axios.put('/api/userData/follow', data, config)
+        forceUpdate()
+    }
     
     return (
         <Wrapper>
@@ -60,6 +70,7 @@ function FullUser() {
                         whileTap={{ scale: .9 }} 
                         transition={{ duration: .3 }}
                         className='ml-auto my-1 mr-1 bg-red-700 p-5 py-1 rounded-lg'
+                        onClick={follow}
                     >
                         Follow
                     </motion.button>

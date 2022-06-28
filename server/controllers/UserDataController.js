@@ -33,9 +33,23 @@ const update = asyncHandler(async (req,res) => {
     res.status(200).json({msg: 'Success'})
 })
 
+const follow = asyncHandler(async(req,res) => {
+    const exists = await User.findOne({$and: [
+        { _id: req.body.id},
+        { followers: req.user.id}
+    ]});
+    if (exists) {
+        await User.findByIdAndUpdate(req.body.id, {$pull: {followers: req.user.id}})
+    } else{
+        await User.findByIdAndUpdate(req.body.id, {$addToSet: {followers: req.user.id}})
+    }
+    res.status(200).json({ msg: 'followed'})
+})
+
 module.exports = {
     getUserdata,
     top,
     getbyquery,
-    update
+    update,
+    follow
 }
