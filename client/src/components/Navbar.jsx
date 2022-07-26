@@ -51,7 +51,6 @@ function Navbar() {
                 {user ?
                     <>
                         <Navbutton link={'/liked'} text={'Likes'} />
-                        <Navbutton link={'/messages'} text={'Messages'} />
                         <Navbutton link={'/settings'} text={'Settings'}/>
                         <motion.button 
                         onClick={logoutFunc}
